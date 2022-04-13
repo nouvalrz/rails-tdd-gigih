@@ -24,6 +24,19 @@ RSpec.describe Food, type: :model do
     expect(food.errors[:name]).to include("can't be blank")
   end
 
+  it 'is invalid with less than 2 words name' do
+    food = Food.new(
+      name: "nasi",
+      description: 'Beras yang dimasak',
+      price: 15000.0,
+      category_id: 1
+    )
+
+    food.valid?
+
+    expect(food.errors[:name]).to include("needs to be more than 1 word")
+  end
+
   it 'is invalid without a description' do
     food = Food.new(
       name: 'Nasi Uduk',
