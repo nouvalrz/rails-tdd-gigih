@@ -35,6 +35,18 @@ RSpec.describe Food, type: :model do
 
     expect(food.errors[:description]).to include("can't be blank")
   end
+  
+  it 'is invalid without a category_id' do
+    food = Food.new(
+      name: 'Nasi Uduk',
+      description: nil,
+      price: 15000.0
+    )
+
+    food.valid?
+
+    expect(food.errors[:category_id]).to include("can't be blank")
+  end
 
     it "is invalid with a duplicate name" do
     food1 = Food.create(
